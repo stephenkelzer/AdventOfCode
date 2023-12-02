@@ -1,9 +1,9 @@
 fn main() {
-    println!("part_one: {}", part_one());
-    println!("part_two: {}", part_two());
+    println!("part_one: {}", run_part_one());
+    println!("part_two: {}", run_part_two());
 }
 
-fn part_one() -> i32 {
+fn run_part_one() -> i32 {
     include_str!("codes.txt")
         .split("\n")
         .map(|code| {
@@ -20,7 +20,7 @@ fn part_one() -> i32 {
         .sum()
 }
 
-fn part_two() -> i32 {
+fn run_part_two() -> i32 {
     include_str!("codes.txt")
         .replace("one", "o1e")
         .replace("two", "t2o")
@@ -51,12 +51,12 @@ mod day_1 {
     use super::*;
 
     #[test]
-    fn part_one_is_correct() {
-        assert_eq!(part_one(), 55029);
+    fn part_one() {
+        assert_eq!(run_part_one(), 55029);
     }
 
     #[test]
-    fn part_two_is_correct() {
-        assert_eq!(part_two(), 55686);
+    fn part_two() {
+        assert_eq!(run_part_two(), 55686);
     }
 }
