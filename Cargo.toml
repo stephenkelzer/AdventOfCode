@@ -1,0 +1,10 @@
+[workspace]
+resolver = "2"
+members = ["days/*"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+authors = ["Stephen Kelzer <stephen@stephenkelzer.com>"]
+
+[workspace.dependencies]
