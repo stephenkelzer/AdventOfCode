@@ -1,5 +1,6 @@
 fn main() {
     println!("part_one: {}", run_part_one());
+    println!("part_two: {}", run_part_two());
 }
 
 fn run_part_one() -> usize {
@@ -79,6 +80,59 @@ fn run_part_one() -> usize {
         .sum()
 }
 
+fn run_part_two() -> usize {
+    include_str!("games.txt")
+        .split("\n")
+        .map(|line| {
+            let mut max_red_seen: usize = 0;
+            let mut max_green_seen: usize = 0;
+            let mut max_blue_seen: usize = 0;
+
+            line.split(':')
+                .collect::<Vec<_>>()
+                .last()
+                .expect("Couldn't parse game values string")
+                .trim()
+                .split(';')
+                .map(|x| x.trim())
+                .for_each(|round| {
+                    round.split(",").map(|x| x.trim()).for_each(|pull| {
+                        let values = pull.split(" ").collect::<Vec<_>>();
+                        let qty = values
+                            .first()
+                            .expect("Could not parse qty")
+                            .parse::<usize>()
+                            .expect("Could not convert qty to usize");
+                        let color = values.last().expect("Could not parse color");
+
+                        match color {
+                            &"red" => {
+                                if qty > max_red_seen {
+                                    max_red_seen = qty;
+                                }
+                            }
+                            &"blue" => {
+                                if qty > max_blue_seen {
+                                    max_blue_seen = qty;
+                                }
+                            }
+                            &"green" => {
+                                if qty > max_green_seen {
+                                    max_green_seen = qty;
+                                }
+                            }
+                            _ => {
+                                panic!("Unknown color encountered")
+                            }
+                        }
+                    });
+                });
+
+            max_red_seen * max_green_seen * max_blue_seen
+        })
+        .sum::<usize>()
+}
+
 #[cfg(test)]
 mod day_2 {
     use super::*;
@@ -86,5 +140,10 @@ mod day_2 {
     #[test]
     fn part_one() {
         assert_eq!(run_part_one(), 2156);
+    }
+
+    #[test]
+    fn part_two() {
+        assert_eq!(run_part_two(), 66909);
     }
 }
