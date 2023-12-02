@@ -11,10 +11,8 @@ fn run_part_one() -> usize {
     include_str!("games.txt")
         .split("\n")
         .filter_map(|line| {
-            // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
             let splits = line.split(':').collect::<Vec<_>>();
 
-            // example: 1
             let game_id = splits
                 .first()
                 .expect("Couldn't parse game identifier string")
@@ -23,7 +21,6 @@ fn run_part_one() -> usize {
                 .parse::<usize>()
                 .expect("Couldn't parse game id");
 
-            // example: ["5 blue, 6 red", "8 red", "1 green, 9 blue, 5 red"]
             let rounds = splits
                 .last()
                 .expect("Couldn't parse game values string")
