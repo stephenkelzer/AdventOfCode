@@ -12,7 +12,7 @@ fn run_part_two() -> i32 {
 }
 
 #[cfg(test)]
-mod day_1 {
+mod day_3 {
     use super::*;
 
     #[test]
