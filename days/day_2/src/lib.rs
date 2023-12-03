@@ -39,20 +39,19 @@ mod day_2 {
                             .expect("Could not parse qty")
                             .parse::<usize>()
                             .expect("Could not convert qty to usize");
-                        let color = values.last().expect("Could not parse color");
 
-                        match color {
-                            &"red" => {
+                        match *values.last().expect("Could not parse color") {
+                            "red" => {
                                 if qty > red_seen {
                                     red_seen = qty;
                                 }
                             }
-                            &"blue" => {
+                            "blue" => {
                                 if qty > blue_seen {
                                     blue_seen = qty;
                                 }
                             }
-                            &"green" => {
+                            "green" => {
                                 if qty > green_seen {
                                     green_seen = qty;
                                 }
@@ -101,20 +100,19 @@ mod day_2 {
                                 .expect("Could not parse qty")
                                 .parse::<usize>()
                                 .expect("Could not convert qty to usize");
-                            let color = values.last().expect("Could not parse color");
 
-                            match color {
-                                &"red" => {
+                            match *values.last().expect("Could not parse color") {
+                                "red" => {
                                     if qty > max_red_seen {
                                         max_red_seen = qty;
                                     }
                                 }
-                                &"blue" => {
+                                "blue" => {
                                     if qty > max_blue_seen {
                                         max_blue_seen = qty;
                                     }
                                 }
-                                &"green" => {
+                                "green" => {
                                     if qty > max_green_seen {
                                         max_green_seen = qty;
                                     }
