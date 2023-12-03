@@ -16,7 +16,7 @@ mod day_3 {
     }
 
     impl Grid {
-        pub fn get_adjacent(&self, row: usize, col: usize) -> Vec<(char, usize, usize)> {
+        pub fn get_adjacent_cells(&self, row: usize, col: usize) -> Vec<(char, usize, usize)> {
             let mut adjacent = Vec::new();
 
             // top left
@@ -60,14 +60,6 @@ mod day_3 {
             }
 
             adjacent
-        }
-
-        pub fn is_eligible(&self, row: usize, col: usize) -> bool {
-            let adjacent = self.get_adjacent(row, col);
-            adjacent
-                .iter()
-                .map(|x| x.0)
-                .any(|x| !x.eq(&'.') && !x.is_numeric())
         }
 
         pub fn get_part_number_at(&self, row: usize, col: usize) -> Option<(usize, usize, usize)> {
@@ -120,7 +112,12 @@ mod day_3 {
                 if col.is_numeric() {
                     curr_part_number.push(*col);
 
-                    if grid.is_eligible(r, c) {
+                    if grid
+                        .get_adjacent_cells(r, c)
+                        .iter()
+                        .map(|x| x.0)
+                        .any(|x| !x.eq(&'.') && !x.is_numeric())
+                    {
                         curr_part_number_eligible = true;
                     }
                 } else {
@@ -152,27 +149,15 @@ mod day_3 {
         for (r, row) in grid.grid.iter().enumerate() {
             for (c, col) in row.iter().enumerate() {
                 if col.eq(&'*') {
-                    let neighbors = grid.get_adjacent(r, c);
                     let mut part_numbers = Vec::<(usize, usize, usize)>::new(); // (part_number, row, col)
 
-                    neighbors
-                        .iter()
-                        .for_each(|x| match grid.get_part_number_at(x.1, x.2) {
-                            Some((part_number, part_number_starting_r, part_number_starting_c)) => {
-                                if !part_numbers.contains(&(
-                                    part_number,
-                                    part_number_starting_r,
-                                    part_number_starting_c,
-                                )) {
-                                    part_numbers.push((
-                                        part_number,
-                                        part_number_starting_r,
-                                        part_number_starting_c,
-                                    ))
-                                }
+                    grid.get_adjacent_cells(r, c).iter().for_each(|x| {
+                        if let Some((part_number, starting_r, starting_c)) = grid.get_part_number_at(x.1, x.2) {
+                            if !part_numbers.contains(&(part_number, starting_r, starting_c)) {
+                                part_numbers.push((part_number, starting_r, starting_c))
                             }
-                            None => {}
-                        });
+                        }
+                    });
 
                     if part_numbers.len() == 2 {
                         gear_ratios.push(part_numbers.iter().map(|x| x.0).product());
