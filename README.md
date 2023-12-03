@@ -22,13 +22,13 @@ example of testing all days:
             <th colspan="3" style="text-align:center;">Part 2</th>
         </tr>
         <tr>
-            <th style="text-align: right;">Day</th>
-            <th style="text-align: right;">Time</th>
-            <th style="text-align: right;">Rank</th>
-            <th style="text-align: right;">Score</th>
-            <th style="text-align: right;">Time</th>
-            <th style="text-align: right;">Rank</th>
-            <th style="text-align: right;">Score</th>
+            <th style="text-align: center;">Day</th>
+            <th style="text-align: center;">Time</th>
+            <th style="text-align: center;">Rank</th>
+            <th style="text-align: center;">Score</th>
+            <th style="text-align: center;">Time</th>
+            <th style="text-align: center;">Rank</th>
+            <th style="text-align: center;">Score</th>
         </tr>
     </thead>
     <tbody>

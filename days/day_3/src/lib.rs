@@ -16,7 +16,7 @@ mod day_3 {
     }
 
     impl Grid {
-        pub fn get_adjacent_cells(&self, row: usize, col: usize) -> Vec<(char, usize, usize)> {
+        pub fn get_neighbors(&self, row: usize, col: usize) -> Vec<(char, usize, usize)> {
             let mut adjacent = Vec::new();
 
             // top left
@@ -113,7 +113,7 @@ mod day_3 {
                     curr_part_number.push(*col);
 
                     if grid
-                        .get_adjacent_cells(r, c)
+                        .get_neighbors(r, c)
                         .iter()
                         .map(|x| x.0)
                         .any(|x| !x.eq(&'.') && !x.is_numeric())
@@ -151,8 +151,10 @@ mod day_3 {
                 if col.eq(&'*') {
                     let mut part_numbers = Vec::<(usize, usize, usize)>::new(); // (part_number, row, col)
 
-                    grid.get_adjacent_cells(r, c).iter().for_each(|x| {
-                        if let Some((part_number, starting_r, starting_c)) = grid.get_part_number_at(x.1, x.2) {
+                    grid.get_neighbors(r, c).iter().for_each(|x| {
+                        if let Some((part_number, starting_r, starting_c)) =
+                            grid.get_part_number_at(x.1, x.2)
+                        {
                             if !part_numbers.contains(&(part_number, starting_r, starting_c)) {
                                 part_numbers.push((part_number, starting_r, starting_c))
                             }
