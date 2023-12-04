@@ -11,7 +11,6 @@ example of testing a single day:
 example of testing all days:
 `cargo test`
 
-
 ## My Personal Leaderboard
 
 <table>
@@ -32,6 +31,15 @@ example of testing all days:
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td style="text-align: right;">Day 4</td>
+            <td style="text-align: right;">01:22:57</td>
+            <td style="text-align: right;">16561</td>
+            <td style="text-align: right;">0</td>
+            <td style="text-align: right;">03:12:24</td>
+            <td style="text-align: right;">20064</td>
+            <td style="text-align: right;">0</td>
+        </tr>
         <tr>
             <td style="text-align: right;">Day 3</td>
             <td style="text-align: right;">01:19:22</td>
