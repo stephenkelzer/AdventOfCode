@@ -32,6 +32,15 @@ example of testing all days:
     </thead>
     <tbody>
         <tr>
+            <td style="text-align: right;">Day 5</td>
+            <td style="text-align: right;">01:57:42</td>
+            <td style="text-align: right;">13035</td>
+            <td style="text-align: right;">0</td>
+            <td style="text-align: right;"></td>
+            <td style="text-align: right;"></td>
+            <td style="text-align: right;"></td>
+        </tr>
+        <tr>
             <td style="text-align: right;">Day 4</td>
             <td style="text-align: right;">01:22:57</td>
             <td style="text-align: right;">16561</td>
