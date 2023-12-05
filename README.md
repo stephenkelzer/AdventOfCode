@@ -36,9 +36,9 @@ example of testing all days:
             <td style="text-align: right;">01:57:42</td>
             <td style="text-align: right;">13035</td>
             <td style="text-align: right;">0</td>
-            <td style="text-align: right;"></td>
-            <td style="text-align: right;"></td>
-            <td style="text-align: right;"></td>
+            <td style="text-align: right;">02:39:13</td>
+            <td style="text-align: right;">5829</td>
+            <td style="text-align: right;">0</td>
         </tr>
         <tr>
             <td style="text-align: right;">Day 4</td>
