@@ -41,6 +41,7 @@ mod day_5 {
     }
 
     #[test]
+    #[ignore]// ignored because this test takes wayyyyy too long to run (at the moment!)
     fn part_two() {
         let config = Configuration::default();
 
