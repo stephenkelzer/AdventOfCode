@@ -32,7 +32,7 @@ example of testing all days:
     </thead>
     <tbody>
         <tr>
-            <td>Day 6</td>
+            <td><a href="https://adventofcode.com/2023/day/6">Day 6</a></td>
             <td>00:20:05</td>
             <td>6751</td>
             <td>0</td>
@@ -41,7 +41,7 @@ example of testing all days:
             <td>0</td>
         </tr>
         <tr>
-            <td>Day 5</td>
+            <td><a href="https://adventofcode.com/2023/day/5">Day 5</a></td>
             <td>01:57:42</td>
             <td>13035</td>
             <td>0</td>
@@ -50,7 +50,7 @@ example of testing all days:
             <td>0</td>
         </tr>
         <tr>
-            <td>Day 4</td>
+            <td><a href="https://adventofcode.com/2023/day/4">Day 4</a></td>
             <td>01:22:57</td>
             <td>16561</td>
             <td>0</td>
@@ -59,7 +59,7 @@ example of testing all days:
             <td>0</td>
         </tr>
         <tr>
-            <td>Day 3</td>
+            <td><a href="https://adventofcode.com/2023/day/3">Day 3</a></td>
             <td>01:19:22</td>
             <td>8802</td>
             <td>0</td>
@@ -68,7 +68,7 @@ example of testing all days:
             <td>0</td>
         </tr>
         <tr>
-            <td>Day 2</td>
+            <td><a href="https://adventofcode.com/2023/day/2">Day 2</a></td>
             <td>01:08:51</td>
             <td>12355</td>
             <td>0</td>
@@ -77,7 +77,7 @@ example of testing all days:
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/1" target="_blank">Day 1</a></td>
+            <td><a href="https://adventofcode.com/2023/day/1">Day 1</a></td>
             <td>23:10:51</td>
             <td>145240</td>
             <td>0</td>
