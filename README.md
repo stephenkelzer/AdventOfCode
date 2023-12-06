@@ -77,7 +77,7 @@ example of testing all days:
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/1">Day 1</a></td>
+            <td><a href="https://adventofcode.com/2023/day/1" target="_blank">Day 1</a></td>
             <td>23:10:51</td>
             <td>145240</td>
             <td>0</td>
