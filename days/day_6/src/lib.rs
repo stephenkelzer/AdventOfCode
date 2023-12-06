@@ -1,39 +1,24 @@
 #[cfg(test)]
 mod day_6 {
-    struct Race {
-        pub time_ms: usize,
-        pub distance_record_mm: usize,
-    }
+    struct Race(pub usize, pub usize);
 
     #[test]
     fn part_one() {
         let races = vec![
-            Race {
-                time_ms: 61,
-                distance_record_mm: 430,
-            },
-            Race {
-                time_ms: 67,
-                distance_record_mm: 1036,
-            },
-            Race {
-                time_ms: 75,
-                distance_record_mm: 1307,
-            },
-            Race {
-                time_ms: 71,
-                distance_record_mm: 1150,
-            },
+            Race(61, 430),
+            Race(67, 1036),
+            Race(75, 1307),
+            Race(71, 1150),
         ];
 
         let answer = races
             .iter()
             .map(|race| {
                 let mut win_count = 0;
-                for boat_speed in 1..race.time_ms {
-                    let dist = boat_speed * (race.time_ms - boat_speed);
+                for boat_mm_per_ms in 1..race.0 {
+                    let distance_travelled = boat_mm_per_ms * (race.0 - boat_mm_per_ms);
 
-                    if dist > race.distance_record_mm {
+                    if distance_travelled > race.1 {
                         win_count += 1;
                     }
                 }
@@ -42,11 +27,22 @@ mod day_6 {
             })
             .product::<usize>();
 
-        assert_eq!(answer, 288);
+        assert_eq!(answer, 316800);
     }
 
     #[test]
     fn part_two() {
-        assert_eq!(123, 123);
+        let race = Race(61677571, 430103613071150);
+
+        let mut win_count = 0;
+        for boat_mm_per_ms in 1..race.0 {
+            let distance_travelled = boat_mm_per_ms * (race.0 - boat_mm_per_ms);
+
+            if distance_travelled > race.1 {
+                win_count += 1;
+            }
+        }
+
+        assert_eq!(win_count, 45647654);
     }
 }
