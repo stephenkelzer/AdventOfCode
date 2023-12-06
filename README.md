@@ -1,15 +1,22 @@
 # Advent of Code 2023
 
-These are my 2023 [Advent of Code](https://adventofcode.com/) solutions
+![Tests](https://github.com/stephenkelzer/aoc2023/actions/workflows/build_and_test.yml/badge.svg)
 
-- Each day is it's own workspace (allows for isolated or shared crates to be used)
-- Each day should have at least one unit test setup
+This is my codebase for the 2023 [Advent of Code](https://adventofcode.com/). This is a simple Rust workflows project separating each day of the event into it's own workspace. There are no binaries in this project, so running `cargo run` will not work. Instead, each day's workspace is a library and has unit tests to check their answer. Once I have successfully completed the puzzle, I update the corresponding unit test's assertion to be correct and then commit the code.
 
-example of testing a single day:
-`cargo test -p day_1`
+#### Prerequisites
+- Install [Rust](https://www.rust-lang.org/tools/install)
 
-example of testing all days:
-`cargo test`
+## How to
+Run all tests:
+```bash
+cargo test
+```
+Run a specific days tests:
+```bash
+cargo test -p day_9
+```
+
 
 ## My Personal Leaderboard
 
