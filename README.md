@@ -39,6 +39,15 @@ cargo test -p day_9
     </thead>
     <tbody>
         <tr>
+            <td><a href="https://adventofcode.com/2023/day/7">Day 7</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
             <td><a href="https://adventofcode.com/2023/day/6">Day 6</a></td>
             <td>00:20:05</td>
             <td>6751</td>
