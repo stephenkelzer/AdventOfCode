@@ -1,24 +1,36 @@
 #[cfg(test)]
 mod day_6 {
-    struct Race(pub usize, pub usize);
-
     #[test]
     fn part_one() {
-        let races = vec![
-            Race(61, 430),
-            Race(67, 1036),
-            Race(75, 1307),
-            Race(71, 1150),
-        ];
+        let mut lines = include_str!("input.txt").lines().into_iter();
+        let times = lines
+            .next()
+            .unwrap()
+            .split_once(':')
+            .unwrap()
+            .1
+            .split_whitespace()
+            .map(|x| x.parse::<usize>().unwrap())
+            .collect::<Vec<_>>();
+        let distances = lines
+            .next()
+            .unwrap()
+            .split_once(':')
+            .unwrap()
+            .1
+            .split_whitespace()
+            .map(|x| x.parse::<usize>().unwrap())
+            .collect::<Vec<_>>();
 
-        let answer = races
+        let answer = times
             .iter()
-            .map(|race| {
+            .zip(distances)
+            .map(|(race_time, record_distance)| {
                 let mut win_count = 0;
-                for boat_mm_per_ms in 1..race.0 {
-                    let distance_travelled = boat_mm_per_ms * (race.0 - boat_mm_per_ms);
+                for boat_mm_per_ms in 1..*race_time {
+                    let distance_travelled = boat_mm_per_ms * (race_time - boat_mm_per_ms);
 
-                    if distance_travelled > race.1 {
+                    if distance_travelled > record_distance {
                         win_count += 1;
                     }
                 }
@@ -32,13 +44,31 @@ mod day_6 {
 
     #[test]
     fn part_two() {
-        let race = Race(61677571, 430103613071150);
+        let mut lines = include_str!("input.txt").lines().into_iter();
+        let race_time = lines
+            .next()
+            .unwrap()
+            .split_once(':')
+            .unwrap()
+            .1
+            .replace(' ', "")
+            .parse::<usize>()
+            .unwrap();
+        let record_distance = lines
+            .next()
+            .unwrap()
+            .split_once(':')
+            .unwrap()
+            .1
+            .replace(' ', "")
+            .parse::<usize>()
+            .unwrap();
 
         let mut win_count = 0;
-        for boat_mm_per_ms in 1..race.0 {
-            let distance_travelled = boat_mm_per_ms * (race.0 - boat_mm_per_ms);
+        for boat_mm_per_ms in 1..race_time {
+            let distance_travelled = boat_mm_per_ms * (race_time - boat_mm_per_ms);
 
-            if distance_travelled > race.1 {
+            if distance_travelled > record_distance {
                 win_count += 1;
             }
         }
