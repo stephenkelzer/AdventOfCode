@@ -8,3 +8,4 @@ authors.workspace = true
 doctest = false
 
 [dependencies]
+itertools = "0.12.0"
