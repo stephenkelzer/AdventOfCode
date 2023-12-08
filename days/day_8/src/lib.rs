@@ -1,6 +1,7 @@
 #[cfg(test)]
 mod day_8 {
     use itertools::Itertools;
+    use std::collections::HashMap;
 
     #[test]
     fn part_one() {
@@ -8,38 +9,34 @@ mod day_8 {
         let instructions = lines.next().unwrap().chars().collect_vec();
         let instructions_length = instructions.len();
 
-        // Vec<(curr_location, left_option, right_option)>
-        let nodes = lines
-            .skip(1)
-            .map(|l| {
+        let nodes: HashMap<String, (String, bool)> =
+            HashMap::from_iter(lines.skip(1).flat_map(|l| {
                 let (location, options) = l.split_once(" = ").unwrap();
                 let (l, r) = options.split_once(", ").unwrap();
-                (location.to_string(), l.replace('(', ""), r.replace(')', ""))
-            })
-            .collect_vec();
+                let l = l.replace('(', "");
+                let r = r.replace(')', "");
+
+                vec![
+                    (format!("{}-L", location), (l.to_string(), l == "ZZZ")),
+                    (format!("{}-R", location), (r.to_string(), r == "ZZZ")),
+                ]
+            }));
 
         let mut steps_taken: usize = 0;
-        let mut current_node = nodes
-            .iter()
-            .find(|(location, _, _)| location == "AAA")
-            .unwrap();
+        let mut current_location = "AAA";
         let mut made_it = false;
 
         while !made_it {
             let current_instruction = instructions[steps_taken % instructions_length];
 
-            let next_node = nodes
-                .iter()
-                .find(|(location, _, _)| {
-                    (current_instruction == 'L' && current_node.1.eq(location))
-                        || (current_instruction == 'R' && current_node.2.eq(location))
-                })
+            let (next, is_z) = nodes
+                .get(&format!("{current_location}-{current_instruction}"))
                 .unwrap();
 
-            current_node = next_node;
+            current_location = next;
             steps_taken += 1;
 
-            if next_node.0.eq("ZZZ") {
+            if *is_z {
                 made_it = true
             }
         }
@@ -49,8 +46,58 @@ mod day_8 {
 
     #[test]
     fn part_two() {
-        // TODO
+        let mut lines = include_str!("input.txt").lines();
+        let mut instructions = lines
+            .next()
+            .unwrap()
+            .chars()
+            .map(|x| if x.eq(&'L') { 0 } else { 1 })
+            .cycle();
 
-        assert_eq!(123, 123);
+        let map: HashMap<String, [String; 2]> = HashMap::from_iter(lines.skip(1).map(|l| {
+            let (location, options) = l.split_once(" = ").unwrap();
+            let (l, r) = options.split_once(", ").unwrap();
+            let l = l.replace('(', "");
+            let r = r.replace(')', "");
+
+            (location.to_string(), [l.to_string(), r.to_string()])
+        }));
+
+        let mut positions = map
+            .iter()
+            .filter_map(|(key, _)| {
+                if key.ends_with('A') {
+                    Some((key.as_str(), 0usize))
+                } else {
+                    None
+                }
+            })
+            .collect_vec();
+
+        let pos_len = positions.len();
+
+        let mut answer = || -> usize {
+            loop {
+                let next_instruction = instructions.next().unwrap();
+
+                for p in positions.iter_mut().filter(|(pos, _)| !pos.ends_with("Z")) {
+                    p.0 = &map[p.0][next_instruction];
+                    p.1 += 1;
+                }
+
+                if positions
+                    .iter()
+                    .filter(|(pos, _)| pos.ends_with('Z'))
+                    .count()
+                    == pos_len
+                {
+                    return positions
+                        .iter()
+                        .fold(1, |acc, (_, steps)| num::integer::lcm(acc, *steps));
+                }
+            }
+        };
+
+        assert_eq!(answer(), 15726453850399);
     }
 }
