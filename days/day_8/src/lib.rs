@@ -6,8 +6,7 @@ mod day_8 {
     #[test]
     fn part_one() {
         let mut lines = include_str!("input.txt").lines();
-        let instructions = lines.next().unwrap().chars().collect_vec();
-        let instructions_length = instructions.len();
+        let mut instructions = lines.next().unwrap().chars().cycle();
 
         let nodes: HashMap<String, (String, bool)> =
             HashMap::from_iter(lines.skip(1).flat_map(|l| {
@@ -27,7 +26,7 @@ mod day_8 {
         let mut made_it = false;
 
         while !made_it {
-            let current_instruction = instructions[steps_taken % instructions_length];
+            let current_instruction = instructions.next().unwrap();
 
             let (next, is_z) = nodes
                 .get(&format!("{current_location}-{current_instruction}"))
