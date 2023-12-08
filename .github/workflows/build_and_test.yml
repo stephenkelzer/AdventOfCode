@@ -2,7 +2,7 @@ name: Tests
 
 on: push
 
-concurrency: 
+concurrency:
   group: build-and-test-${{ github.head_ref }}
   cancel-in-progress: true
 
@@ -16,5 +16,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
-      - run: cargo build --verbose
-      - run: cargo test --verbose
+      - run: cargo test --release --no-fail-fast --verbose
