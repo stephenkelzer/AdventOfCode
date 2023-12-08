@@ -74,6 +74,7 @@ mod day_8 {
             .collect_vec();
 
         let pos_len = positions.len();
+        let mut finished_len = 0;
 
         let mut answer = || -> usize {
             loop {
@@ -81,15 +82,13 @@ mod day_8 {
 
                 for p in positions.iter_mut().filter(|(pos, _)| !pos.ends_with("Z")) {
                     p.0 = &map[p.0][next_instruction];
+                    if p.0.ends_with("Z") {
+                        finished_len += 1;
+                    }
                     p.1 += 1;
                 }
 
-                if positions
-                    .iter()
-                    .filter(|(pos, _)| pos.ends_with('Z'))
-                    .count()
-                    == pos_len
-                {
+                if finished_len == pos_len {
                     return positions
                         .iter()
                         .fold(1, |acc, (_, steps)| num::integer::lcm(acc, *steps));
