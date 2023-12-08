@@ -1,77 +1,138 @@
 #[cfg(test)]
-mod almanac_map;
-
-#[cfg(test)]
-mod config;
-
-#[cfg(test)]
 mod day_5 {
-    use crate::config::Configuration;
-    use rayon::iter::{IntoParallelIterator, ParallelIterator};
+    use itertools::Itertools;
 
     #[test]
     fn part_one() {
-        let config = Configuration::default();
+        let mut lines = include_str!("input.txt").lines();
 
-        let closest_location = config
-            .seeds
-            .iter()
-            .map(|seed| {
-                let mut current_value = seed.clone();
-                let mut current_source = "seed";
+        let mut seeds = lines
+            .next()
+            .unwrap()
+            .split_once(':')
+            .unwrap()
+            .1
+            .trim()
+            .split_whitespace()
+            .map(|n| (n.parse::<usize>().unwrap(), false))
+            .collect_vec();
 
-                while current_source != "location" {
-                    let mapper = config
-                        .maps
-                        .iter()
-                        .find(|m| m.source == current_source)
-                        .expect("No map found!");
+        for line in lines {
+            if !line.is_empty() && !line.contains("map") {
+                let records = line
+                    .trim()
+                    .split(' ')
+                    .map(|x| x.parse::<usize>().expect("failed to parse record number"))
+                    .collect::<Vec<_>>();
 
-                    current_value = mapper.get_destination(current_value);
-                    current_source = mapper.destination.as_str();
-                }
+                let destination_range_start = records[0];
+                let source_range_start = records[1];
+                let range_length = records[2];
 
-                current_value
-            })
-            .min()
-            .expect("No min seed found!")
-            .clone();
+                seeds = seeds
+                    .iter()
+                    .map(|(seed, seen)| {
+                        if !seen
+                            && *seed >= source_range_start
+                            && *seed <= (source_range_start + range_length)
+                        {
+                            (destination_range_start + (*seed - source_range_start), true)
+                        } else {
+                            (*seed, *seen)
+                        }
+                    })
+                    .collect();
+            } else {
+                seeds = seeds.iter().map(|(seed, _)| (*seed, false)).collect()
+            }
+        }
 
-        assert_eq!(closest_location, 227653707);
+        let result = seeds.iter().map(|(seed, _)| seed).min().unwrap();
+
+        assert_eq!(*result, 227653707);
     }
 
     #[test]
-    #[ignore]// ignored because this test takes wayyyyy too long to run (at the moment!)
     fn part_two() {
-        let config = Configuration::default();
+        let mut lines = include_str!("input.txt").lines();
 
-        let closest_location = config
-            .seeds
+        let seed_ranges = lines
+            .next()
+            .unwrap()
+            .split_once(": ")
+            .unwrap()
+            .1
+            .split_whitespace()
+            .map(|n| n.parse::<usize>().unwrap())
+            .collect_vec()
             .chunks(2)
-            .filter_map(|s| {
-                (s[0]..(s[0] + s[1]))
-                    .into_par_iter()
-                    .map(|seed| {
-                        let mut current_value = seed.clone();
-                        let mut current_source = "seed";
+            .map(|c| c[0]..(c[0] + c[1]))
+            .collect_vec();
 
-                        while current_source != "location" {
-                            let mapper = config
-                                .maps
-                                .iter()
-                                .find(|m| m.source == current_source)
-                                .expect("No map found!");
+        let mut maps: Vec<Vec<(usize, usize, usize)>> = vec![];
+        let mut temp_current_map: Option<Vec<(usize, usize, usize)>> = None;
 
-                            current_value = mapper.get_destination(current_value);
-                            current_source = mapper.destination.as_str();
-                        }
+        lines.skip(1).for_each(|line| {
+            match line.trim() {
+                line if line.ends_with("map:") => {
+                    // NEW MAP
+                    temp_current_map = Some(vec![]);
+                }
+                line if line.is_empty() => {
+                    // END OF MAP
+                    maps.push(temp_current_map.as_mut().expect("No current map!").clone());
+                    temp_current_map = None;
+                }
+                line => {
+                    // VALUE IN CURRENT MAP
+                    let records = line
+                        .trim()
+                        .split(' ')
+                        .map(|x| x.parse::<usize>().expect("failed to parse record number"))
+                        .collect_vec();
 
-                        current_value
-                    })
-                    .min()
+                    temp_current_map
+                        .as_mut()
+                        .expect("No current map!")
+                        .push((records[0], records[1], records[2]));
+                }
+            };
+        });
+
+        if let Some(current_map) = temp_current_map {
+            // catch hanging map at end of file
+            maps.push(current_map);
+        }
+
+        let do_we_have_seed =
+            |seed: usize| seed_ranges.iter().any(|x| x.start <= seed && x.end >= seed);
+
+        let get_seed_given_location = |mut step: usize| -> usize {
+            for map in maps.iter().rev() {
+                for (destination_range_start, source_range_start, range_length) in map {
+                    if destination_range_start <= &step
+                        && destination_range_start + range_length > step
+                    {
+                        step = source_range_start + step - destination_range_start;
+                        break;
+                    }
+                }
+            }
+
+            step
+        };
+
+        let answer = (0..1_000_000_000)
+            .find(|i| {
+                let seed = get_seed_given_location(*i as usize);
+                if do_we_have_seed(seed) {
+                    return true;
+                }
+
+                false
             })
-            .min().expect("No min seed found!");
+            .expect("should have an answer");
 
-        assert_eq!(closest_location, 78775051);
+        assert_eq!(answer, 78775051);
     }
 }
