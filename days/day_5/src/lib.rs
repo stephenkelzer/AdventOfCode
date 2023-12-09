@@ -70,18 +70,18 @@ mod day_5 {
             .collect_vec();
 
         let mut maps: Vec<Vec<(usize, usize, usize)>> = vec![];
-        let mut temp_current_map: Option<Vec<(usize, usize, usize)>> = None;
+        let mut temp_map: Option<Vec<(usize, usize, usize)>> = None;
 
         lines.skip(1).for_each(|line| {
             match line.trim() {
                 line if line.ends_with("map:") => {
                     // NEW MAP
-                    temp_current_map = Some(vec![]);
+                    temp_map = Some(vec![]);
                 }
                 line if line.is_empty() => {
                     // END OF MAP
-                    maps.push(temp_current_map.as_mut().expect("No current map!").clone());
-                    temp_current_map = None;
+                    maps.push(temp_map.as_mut().expect("No current map!").clone());
+                    temp_map = None;
                 }
                 line => {
                     // VALUE IN CURRENT MAP
@@ -91,7 +91,7 @@ mod day_5 {
                         .map(|x| x.parse::<usize>().expect("failed to parse record number"))
                         .collect_vec();
 
-                    temp_current_map
+                    temp_map
                         .as_mut()
                         .expect("No current map!")
                         .push((records[0], records[1], records[2]));
@@ -99,15 +99,14 @@ mod day_5 {
             };
         });
 
-        if let Some(current_map) = temp_current_map {
+        if let Some(current_map) = temp_map {
             // catch hanging map at end of file
             maps.push(current_map);
         }
 
-        let do_we_have_seed =
-            |seed: usize| seed_ranges.iter().any(|x| x.start <= seed && x.end >= seed);
+        let in_range = |seed: usize| seed_ranges.iter().any(|x| x.start <= seed && x.end >= seed);
 
-        let get_seed_given_location = |mut step: usize| -> usize {
+        let get_seed_location = |mut step: usize| -> usize {
             for map in maps.iter().rev() {
                 for (destination_range_start, source_range_start, range_length) in map {
                     if destination_range_start <= &step
@@ -122,17 +121,17 @@ mod day_5 {
             step
         };
 
-        let answer = (0..1_000_000_000)
-            .find(|i| {
-                let seed = get_seed_given_location(*i as usize);
-                if do_we_have_seed(seed) {
-                    return true;
-                }
+        let mut answer: Option<usize> = None;
+        let mut index: usize = 0;
+        while answer.is_none() {
+            let location = get_seed_location(index);
+            if in_range(location) {
+                answer = Some(index);
+            }
 
-                false
-            })
-            .expect("should have an answer");
+            index += 1;
+        }
 
-        assert_eq!(answer, 78775051);
+        assert_eq!(answer.unwrap(), 78775051);
     }
 }
