@@ -43,7 +43,7 @@ cargo test -p day_09 --release
     </thead>
     <tbody>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/10">Day 10</a></td>
+            <td><a href="https://adventofcode.com/2023/day/10">Day_10</a> (<a href="./days/day_10/src/lib.rs">code</a>)</td>
             <td>01:48:55</td>
             <td>7254</td>
             <td>0</td>
@@ -52,7 +52,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/9">Day 9</a></td>
+            <td><a href="https://adventofcode.com/2023/day/9">Day_09</a> (<a href="./days/day_09/src/lib.rs">code</a>)</td>
             <td>00:31:09</td>
             <td>5988</td>
             <td>0</td>
@@ -61,7 +61,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/8">Day 8</a></td>
+            <td><a href="https://adventofcode.com/2023/day/8">Day_08</a> (<a href="./days/day_08/src/lib.rs">code</a>)</td>
             <td>00:34:05</td>
             <td>8624</td>
             <td>0</td>
@@ -70,7 +70,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/7">Day 7</a></td>
+            <td><a href="https://adventofcode.com/2023/day/7">Day_07</a> (<a href="./days/day_07/src/lib.rs">code</a>)</td>
             <td>01:28:16</td>
             <td>9482</td>
             <td>0</td>
@@ -79,7 +79,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/6">Day 6</a></td>
+            <td><a href="https://adventofcode.com/2023/day/6">Day_06</a> (<a href="./days/day_06/src/lib.rs">code</a>)</td>
             <td>00:20:05</td>
             <td>6751</td>
             <td>0</td>
@@ -88,7 +88,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/5">Day 5</a></td>
+            <td><a href="https://adventofcode.com/2023/day/5">Day_05</a> (<a href="./days/day_05/src/lib.rs">code</a>)</td>
             <td>01:57:42</td>
             <td>13035</td>
             <td>0</td>
@@ -97,7 +97,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/4">Day 4</a></td>
+            <td><a href="https://adventofcode.com/2023/day/4">Day_04</a> (<a href="./days/day_04/src/lib.rs">code</a>)</td>
             <td>01:22:57</td>
             <td>16561</td>
             <td>0</td>
@@ -106,7 +106,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/3">Day 3</a></td>
+            <td><a href="https://adventofcode.com/2023/day/3">Day_03</a> (<a href="./days/day_03/src/lib.rs">code</a>)</td>
             <td>01:19:22</td>
             <td>8802</td>
             <td>0</td>
@@ -115,7 +115,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/2">Day 2</a></td>
+            <td><a href="https://adventofcode.com/2023/day/2">Day_02</a> (<a href="./days/day_02/src/lib.rs">code</a>)</td>
             <td>01:08:51</td>
             <td>12355</td>
             <td>0</td>
@@ -124,7 +124,7 @@ cargo test -p day_09 --release
             <td>0</td>
         </tr>
         <tr>
-            <td><a href="https://adventofcode.com/2023/day/1">Day 1</a></td>
+            <td><a href="https://adventofcode.com/2023/day/1">Day_01</a> (<a href="./days/day_01/src/lib.rs">code</a>)</td>
             <td>23:10:51</td>
             <td>145240</td>
             <td>0</td>
