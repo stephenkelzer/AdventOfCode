@@ -13,13 +13,13 @@ This is my codebase for the 2023 [Advent of Code](https://adventofcode.com/). Th
 Run all tests:
 
 ```bash
-cargo test
+cargo test --release
 ```
 
 Run a specific days tests:
 
 ```bash
-cargo test -p day_9
+cargo test -p day_09 --release
 ```
 
 ## My Personal Leaderboard

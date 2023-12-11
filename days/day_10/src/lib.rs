@@ -18,7 +18,7 @@ mod day_10 {
     struct Point(usize, usize);
 
     #[test]
-    fn part_one() {
+    fn part_01() {
         let lines = include_str!("input.txt").lines();
 
         let char_directions: HashMap<char, [[isize; 2]; 2]> = HashMap::from([
@@ -138,7 +138,7 @@ mod day_10 {
     }
 
     #[test]
-    fn part_two() {
+    fn part_02() {
         let lines = include_str!("input.txt").lines();
 
         let char_directions: HashMap<char, [[isize; 2]; 2]> = HashMap::from([

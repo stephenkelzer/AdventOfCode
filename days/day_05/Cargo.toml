@@ -1,5 +1,5 @@
 [package]
-name = "day_10"
+name = "day_05"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
@@ -8,4 +8,5 @@ authors.workspace = true
 doctest = false
 
 [dependencies]
+rayon.workspace = true
 itertools.workspace = true
