@@ -9,4 +9,3 @@ doctest = false
 
 [dependencies]
 itertools.workspace = true
-grid = "0.12.0"
