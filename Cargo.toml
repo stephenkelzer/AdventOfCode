@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["days/*"]
+members = ["src/core", "src/cli", "days/*", "src/challenges/*/*"]
 
 [workspace.package]
 version = "0.0.0"
@@ -11,3 +11,4 @@ authors = ["Stephen Kelzer <stephen@stephenkelzer.com>"]
 rayon = "1.8.0"
 itertools = "0.12.0"
 num = "0.4.1"
+core = { path = "src/core" }

@@ -1,0 +1,6 @@
+[alias]
+scaffold = "run --quiet --release -- scaffold"
+solve = "run --quiet --release -- solve"
+
+# [env]
+# AOC_YEAR = "2023"
