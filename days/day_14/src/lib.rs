@@ -109,27 +109,26 @@ mod day_13 {
 
         let mut cache: HashMap<u64, usize> = HashMap::new();
         let mut cycle_found_at = 0;
-        let mut answer: usize = 0;
 
-        for j in 0..1000 {
+        for cycle_count in 0..1_000_000_000 {
             north(&mut grid);
             west(&mut grid);
             south(&mut grid);
             east(&mut grid);
 
-            let hash = hash(&grid);
+            let grid_hash = hash(&grid);
 
-            if cache.contains_key(&hash) {
+            if cache.contains_key(&grid_hash) {
                 if cycle_found_at == 0 {
-                    cycle_found_at = j;
+                    cycle_found_at = cycle_count;
                     cache.clear();
-                    cache.insert(hash, j);
+                    cache.insert(grid_hash, cycle_count);
                     continue;
                 }
 
-                let mut remaining = 1_000_000_000 - j - 1;
+                let mut remaining = 1_000_000_000 - cycle_count - 1;
 
-                remaining %= j - cycle_found_at;
+                remaining %= cycle_count - cycle_found_at;
 
                 for _ in 0..remaining {
                     north(&mut grid);
@@ -138,13 +137,13 @@ mod day_13 {
                     east(&mut grid);
                 }
 
-                answer = calculate_load(&grid);
                 break;
             }
 
-            cache.insert(hash, j);
+            cache.insert(grid_hash, cycle_count);
         }
 
+        let answer = calculate_load(&grid);
         assert_eq!(answer, 100531);
     }
 }
