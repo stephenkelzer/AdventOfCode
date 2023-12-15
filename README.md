@@ -45,6 +45,16 @@ cargo test -p day_09 --release
     </thead>
     <tbody>
         <tr>
+            <td><a href="https://adventofcode.com/2023/day/15">Day_15</a></td>
+            <td><a href="./days/day_15/src/lib.rs">view</a></td>
+            <td>00:15:40</td>
+            <td>5000</td>
+            <td>0</td>
+            <td>01:52:14</td>
+            <td>7355</td>
+            <td>0</td>
+        </tr>
+        <tr>
             <td><a href="https://adventofcode.com/2023/day/14">Day_14</a></td>
             <td><a href="./days/day_14/src/lib.rs">view</a></td>
             <td>01:30:58</td>
