@@ -6,7 +6,7 @@ mod day_13 {
     fn part_01() {
         let grids = include_str!("input.txt")
             .split_terminator("\n\n")
-            .map(|chunk| chunk.split("\n").collect_vec())
+            .map(|chunk| chunk.split('\n').collect_vec())
             .collect_vec();
 
         /// HORIZONTAL REFLECTION LINES
@@ -190,7 +190,7 @@ mod day_13 {
                 }
             }
 
-            return (0, 0);
+            (0, 0)
         }
 
         let answer = grids

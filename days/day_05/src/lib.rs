@@ -12,7 +12,6 @@ mod day_05 {
             .split_once(':')
             .unwrap()
             .1
-            .trim()
             .split_whitespace()
             .map(|n| (n.parse::<usize>().unwrap(), false))
             .collect_vec();

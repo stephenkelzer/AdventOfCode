@@ -3,7 +3,7 @@ mod day_01 {
     #[test]
     fn part_01() {
         let result: usize = include_str!("input.txt")
-            .split("\n")
+            .split('\n')
             .map(|code| {
                 let numeric_characters =
                     code.chars().filter(|c| c.is_numeric()).collect::<Vec<_>>();
@@ -33,7 +33,7 @@ mod day_01 {
             .replace("seven", "s7n")
             .replace("eight", "e8t")
             .replace("nine", "n9e")
-            .split("\n")
+            .split('\n')
             .map(|code| {
                 let numeric_characters =
                     code.chars().filter(|c| c.is_numeric()).collect::<Vec<_>>();

@@ -72,7 +72,7 @@ mod day_10 {
                 None
             })
             .filter(|(Point(spot_r, spot_c), char)| {
-                let [[dir_1_r, dir_1_c], [dir_2_r, dir_2_c]] = char_directions.get(&char).unwrap();
+                let [[dir_1_r, dir_1_c], [dir_2_r, dir_2_c]] = char_directions.get(char).unwrap();
 
                 let modded_r = (*spot_r as isize + dir_1_r) as usize;
                 let modded_c = (*spot_c as isize + dir_1_c) as usize;
@@ -192,7 +192,7 @@ mod day_10 {
                 None
             })
             .filter(|(Point(spot_r, spot_c), char)| {
-                let [[dir_1_r, dir_1_c], [dir_2_r, dir_2_c]] = char_directions.get(&char).unwrap();
+                let [[dir_1_r, dir_1_c], [dir_2_r, dir_2_c]] = char_directions.get(char).unwrap();
 
                 let modded_r = (*spot_r as isize + dir_1_r) as usize;
                 let modded_c = (*spot_c as isize + dir_1_c) as usize;

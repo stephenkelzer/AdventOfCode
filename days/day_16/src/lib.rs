@@ -40,7 +40,7 @@ mod day_16 {
 
         let mut beams_queue = vec![Pos(0, 0, Dir::E)];
 
-        while beams_queue.len() > 0 {
+        while !beams_queue.is_empty() {
             let beams_to_process = beams_queue
                 .iter()
                 .cloned()
@@ -91,7 +91,7 @@ mod day_16 {
                                     Dir::S => Pos(r + 1, c, dir),
                                     Dir::W => Pos(r, c - 1, dir),
                                 };
-                                cache.insert(__beam.clone(), next);
+                                cache.insert(*__beam, next);
                                 next
                             })
                             .collect_vec()
@@ -114,7 +114,7 @@ mod day_16 {
             idx: (usize, usize),
             visited: &mut HashMap<(usize, usize), Vec<Dir>>,
         ) {
-            let dir = get_dir(&dir_enum);
+            let dir = get_dir(dir_enum);
             let mut curr_r = idx.0 as i32;
             let mut curr_c = idx.1 as i32;
             let mut current_char = board[idx.0][idx.1];
@@ -134,7 +134,7 @@ mod day_16 {
 
             let vec = visited
                 .entry((curr_r as usize, curr_c as usize))
-                .or_insert(vec![]);
+                .or_default();
             if current_char == '/' {
                 let dir_enum = match dir_enum {
                     Dir::E => Dir::N,
@@ -145,7 +145,7 @@ mod day_16 {
                 if vec.contains(&dir_enum) {
                     return;
                 }
-                vec.push(dir_enum.clone());
+                vec.push(dir_enum);
                 let dir = get_dir(&dir_enum);
                 let new_r = curr_r + dir.0;
                 let new_c = curr_c + dir.1;
@@ -162,7 +162,7 @@ mod day_16 {
                 if vec.contains(&dir_enum) {
                     return;
                 }
-                vec.push(dir_enum.clone());
+                vec.push(dir_enum);
                 let dir = get_dir(&dir_enum);
                 let new_r = curr_r + dir.0;
                 let new_c = curr_c + dir.1;
@@ -199,7 +199,7 @@ mod day_16 {
         }
 
         fn in_range(row: i32, col: i32, row_len: i32, col_len: i32) -> bool {
-            return 0 <= row && row < row_len && 0 <= col && col < col_len;
+            0 <= row && row < row_len && 0 <= col && col < col_len
         }
 
         fn get_dir(dir: &Dir) -> (i32, i32) {

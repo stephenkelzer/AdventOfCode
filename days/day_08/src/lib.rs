@@ -81,9 +81,9 @@ mod day_08 {
             loop {
                 let next_instruction = instructions.next().unwrap();
 
-                for p in positions.iter_mut().filter(|(pos, _)| !pos.ends_with("Z")) {
+                for p in positions.iter_mut().filter(|(pos, _)| !pos.ends_with('Z')) {
                     p.0 = &map[p.0][next_instruction];
-                    if p.0.ends_with("Z") {
+                    if p.0.ends_with('Z') {
                         finished_len += 1;
                     }
                     p.1 += 1;

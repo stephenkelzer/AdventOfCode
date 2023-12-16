@@ -8,7 +8,7 @@ mod day_03 {
         fn default() -> Grid {
             Grid {
                 grid: include_str!("input.txt")
-                    .split("\n")
+                    .split('\n')
                     .map(|line| line.trim().chars().collect())
                     .collect(),
             }
@@ -82,7 +82,7 @@ mod day_03 {
                 }
             }
 
-            let mut curr_c: usize = part_number_starting_c as usize;
+            let mut curr_c: usize = part_number_starting_c;
             let mut curr_part_number = String::new();
             while curr_c < self.grid[row].len() && self.grid[row][curr_c].is_numeric() {
                 curr_part_number.push(self.grid[row][curr_c]);
@@ -120,19 +120,17 @@ mod day_03 {
                     {
                         curr_part_number_eligible = true;
                     }
-                } else {
-                    if curr_part_number.len() > 0 {
-                        let num = curr_part_number
-                            .parse::<usize>()
-                            .expect("Failed to parse string into usize");
+                } else if !curr_part_number.is_empty() {
+                    let num = curr_part_number
+                        .parse::<usize>()
+                        .expect("Failed to parse string into usize");
 
-                        if curr_part_number_eligible {
-                            countable_numbers.push(num);
-                        }
-
-                        curr_part_number.clear();
-                        curr_part_number_eligible = false;
+                    if curr_part_number_eligible {
+                        countable_numbers.push(num);
                     }
+
+                    curr_part_number.clear();
+                    curr_part_number_eligible = false;
                 }
             }
         }

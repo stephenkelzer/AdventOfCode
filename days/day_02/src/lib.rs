@@ -7,7 +7,7 @@ mod day_02 {
         const MAX_BLUE: usize = 14;
 
         let result: usize = include_str!("input.txt")
-            .split("\n")
+            .split('\n')
             .filter_map(|line| {
                 let splits = line.split(':').collect::<Vec<_>>();
 
@@ -15,7 +15,7 @@ mod day_02 {
                     .first()
                     .expect("Couldn't parse game identifier string")
                     .trim()
-                    .replace(&"Game ", &"")
+                    .replace("Game ", "")
                     .parse::<usize>()
                     .expect("Couldn't parse game id");
 
@@ -32,8 +32,8 @@ mod day_02 {
                     let mut green_seen: usize = 0;
                     let mut blue_seen: usize = 0;
 
-                    round.split(",").map(|x| x.trim()).for_each(|pull| {
-                        let values = pull.split(" ").collect::<Vec<_>>();
+                    round.split(',').map(|x| x.trim()).for_each(|pull| {
+                        let values = pull.split(' ').collect::<Vec<_>>();
                         let qty = values
                             .first()
                             .expect("Could not parse qty")
@@ -79,7 +79,7 @@ mod day_02 {
     #[test]
     fn part_02() {
         let result: usize = include_str!("input.txt")
-            .split("\n")
+            .split('\n')
             .map(|line| {
                 let mut max_red_seen: usize = 0;
                 let mut max_green_seen: usize = 0;
@@ -93,8 +93,8 @@ mod day_02 {
                     .split(';')
                     .map(|x| x.trim())
                     .for_each(|round| {
-                        round.split(",").map(|x| x.trim()).for_each(|pull| {
-                            let values = pull.split(" ").collect::<Vec<_>>();
+                        round.split(',').map(|x| x.trim()).for_each(|pull| {
+                            let values = pull.split(' ').collect::<Vec<_>>();
                             let qty = values
                                 .first()
                                 .expect("Could not parse qty")

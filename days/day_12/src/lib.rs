@@ -56,7 +56,7 @@ mod day_12 {
         let answer = include_str!("input.txt")
             .lines()
             .map(|l| {
-                let (springs, map) = l.trim().split_once(" ").unwrap();
+                let (springs, map) = l.trim().split_once(' ').unwrap();
                 let map = map
                     .split(',')
                     .map(|x| x.parse::<usize>().unwrap())
@@ -79,7 +79,7 @@ mod day_12 {
         let answer = include_str!("input.txt")
             .lines()
             .map(|l| {
-                let (springs, map) = l.trim().split_once(" ").unwrap();
+                let (springs, map) = l.trim().split_once(' ').unwrap();
                 let map = map
                     .split(',')
                     .map(|x| x.parse::<usize>().unwrap())

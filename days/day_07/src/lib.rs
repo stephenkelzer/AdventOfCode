@@ -62,19 +62,19 @@ mod day_07 {
     fn find_highest_joker_hand(cards_str: &str) -> HandType {
         let cards_str = cards_str.replace('J', "");
 
-        let sorted = vec!["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+        let sorted = ["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
             .iter()
             .combinations_with_replacement(5 - cards_str.len())
             .map(|x| format!("{}{}", &cards_str, x.iter().join("")))
             .map(|cards_str| Hand::new((&cards_str, 0), false))
-            .sorted_by(|a, b| part_2_hand_sort(a, b));
+            .sorted_by(part_2_hand_sort);
 
-        return sorted
+        sorted
             .rev()
             .take(1) // this might need to be last instead of first?
             .next()
             .unwrap()
-            .hand_type;
+            .hand_type
     }
 
     fn part_2_hand_sort(hand_1: &Hand, hand_2: &Hand) -> std::cmp::Ordering {
@@ -109,7 +109,7 @@ mod day_07 {
                 let a = card_strength_map.get(&a.to_string()).unwrap();
                 let b = card_strength_map.get(&b.to_string()).unwrap();
 
-                match a.cmp(&b) {
+                match a.cmp(b) {
                     std::cmp::Ordering::Equal => {}
                     std::cmp::Ordering::Greater => result = Some(std::cmp::Ordering::Greater),
                     std::cmp::Ordering::Less => result = Some(std::cmp::Ordering::Less),
@@ -190,7 +190,7 @@ mod day_07 {
                     let a = card_strength_map.get(&a.to_string()).unwrap();
                     let b = card_strength_map.get(&b.to_string()).unwrap();
 
-                    match a.cmp(&b) {
+                    match a.cmp(b) {
                         std::cmp::Ordering::Equal => {}
                         std::cmp::Ordering::Greater => result = Some(std::cmp::Ordering::Greater),
                         std::cmp::Ordering::Less => result = Some(std::cmp::Ordering::Less),
@@ -247,7 +247,7 @@ mod day_07 {
             .map(|(a, b)| Hand::new((a, b.parse::<usize>().unwrap()), true))
             .collect_vec();
 
-        hands.sort_by(|a, b| part_2_hand_sort(a, b));
+        hands.sort_by(part_2_hand_sort);
 
         let total_winnings = hands.iter().enumerate().fold(0, |acc, (i, hand)| {
             let winnings = hand.bid * (i + 1);

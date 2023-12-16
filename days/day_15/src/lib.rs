@@ -18,7 +18,7 @@ mod day_15 {
     fn part_01() {
         let answer = include_str!("input.txt")
             .trim()
-            .replace("\n", "")
+            .replace('\n', "")
             .split(',')
             .map(|step| hash(step.chars()) as usize)
             .sum::<usize>();
@@ -30,7 +30,7 @@ mod day_15 {
     fn part_02() {
         let answer = include_str!("input.txt")
             .trim()
-            .replace("\n", "")
+            .replace('\n', "")
             .split(',')
             .map(|x| {
                 if x.contains('=') {

@@ -2,7 +2,7 @@
 mod day_06 {
     #[test]
     fn part_01() {
-        let mut lines = include_str!("input.txt").lines().into_iter();
+        let mut lines = include_str!("input.txt").lines();
         let times = lines
             .next()
             .unwrap()
@@ -44,7 +44,7 @@ mod day_06 {
 
     #[test]
     fn part_02() {
-        let mut lines = include_str!("input.txt").lines().into_iter();
+        let mut lines = include_str!("input.txt").lines();
         let race_time = lines
             .next()
             .unwrap()

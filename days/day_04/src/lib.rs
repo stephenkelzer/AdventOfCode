@@ -5,7 +5,7 @@ mod day_04 {
     #[test]
     fn part_01() {
         let result = include_str!("input.txt")
-            .split("\n")
+            .split('\n')
             .map(|line| {
                 let splits = &line[line.trim().char_indices().nth(10).unwrap().0..]
                     .split(" | ")
@@ -31,7 +31,7 @@ mod day_04 {
                                     if score == 0 {
                                         score = 1;
                                     } else {
-                                        score = score * 2;
+                                        score *= 2;
                                     }
                                 }
 
@@ -54,7 +54,7 @@ mod day_04 {
         let mut card_extra_copies_tracker = HashMap::<usize, usize>::new();
 
         let result = include_str!("input.txt")
-            .split("\n")
+            .split('\n')
             .fold(0, |total_card_count, line| {
                 current_line_number += 1;
 

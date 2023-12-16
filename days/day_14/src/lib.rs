@@ -82,7 +82,7 @@ mod day_14 {
 
     fn hash(grid: &Vec<Vec<char>>) -> u64 {
         let mut hasher = DefaultHasher::new();
-        Hash::hash_slice(&grid, &mut hasher);
+        Hash::hash_slice(grid, &mut hasher);
         hasher.finish()
     }
 
