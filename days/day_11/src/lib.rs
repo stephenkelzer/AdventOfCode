@@ -83,8 +83,8 @@ mod day_11 {
                     .count();
 
                 if expansion_factor > 1 {
-                    r_factor *= (expansion_factor - 1);
-                    c_factor *= (expansion_factor - 1);
+                    r_factor *= expansion_factor - 1;
+                    c_factor *= expansion_factor - 1;
                 }
 
                 let row_diff = p1.r.abs_diff(p2.r) + r_factor;

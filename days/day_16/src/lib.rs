@@ -170,30 +170,30 @@ mod day_16 {
                     go(board, &dir_enum, (new_r as usize, new_c as usize), visited);
                 }
             } else if current_char == '|' {
-                let N = get_dir(&Dir::N);
-                let S = get_dir(&Dir::S);
-                let N_row = curr_r + N.0;
-                let N_col = curr_c + N.1;
-                if in_range(N_row, N_col, row_len, col_len) && !matches!(dir_enum, Dir::S) {
-                    go(board, &Dir::N, (N_row as usize, N_col as usize), visited);
+                let n = get_dir(&Dir::N);
+                let s = get_dir(&Dir::S);
+                let n_row = curr_r + n.0;
+                let n_col = curr_c + n.1;
+                if in_range(n_row, n_col, row_len, col_len) && !matches!(dir_enum, Dir::S) {
+                    go(board, &Dir::N, (n_row as usize, n_col as usize), visited);
                 }
-                let S_row = curr_r + S.0;
-                let S_col = curr_c + S.1;
-                if in_range(S_row, S_col, row_len, col_len) && !matches!(dir_enum, Dir::N) {
-                    go(board, &Dir::S, (S_row as usize, S_col as usize), visited);
+                let s_row = curr_r + s.0;
+                let s_col = curr_c + s.1;
+                if in_range(s_row, s_col, row_len, col_len) && !matches!(dir_enum, Dir::N) {
+                    go(board, &Dir::S, (s_row as usize, s_col as usize), visited);
                 }
             } else if current_char == '-' {
-                let W = get_dir(&Dir::W);
-                let E = get_dir(&Dir::E);
-                let W_row = curr_r + W.0;
-                let W_col = curr_c + W.1;
-                if in_range(W_row, W_col, row_len, col_len) && !matches!(dir_enum, Dir::E) {
-                    go(board, &Dir::W, (W_row as usize, W_col as usize), visited);
+                let w = get_dir(&Dir::W);
+                let e = get_dir(&Dir::E);
+                let w_row = curr_r + w.0;
+                let w_col = curr_c + w.1;
+                if in_range(w_row, w_col, row_len, col_len) && !matches!(dir_enum, Dir::E) {
+                    go(board, &Dir::W, (w_row as usize, w_col as usize), visited);
                 }
-                let E_row = curr_r + E.0;
-                let E_col = curr_c + E.1;
-                if in_range(E_row, E_col, row_len, col_len) && !matches!(dir_enum, Dir::W) {
-                    go(board, &Dir::E, (E_row as usize, E_col as usize), visited);
+                let e_row = curr_r + e.0;
+                let e_col = curr_c + e.1;
+                if in_range(e_row, e_col, row_len, col_len) && !matches!(dir_enum, Dir::W) {
+                    go(board, &Dir::E, (e_row as usize, e_col as usize), visited);
                 }
             }
         }
