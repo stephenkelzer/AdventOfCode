@@ -7,11 +7,11 @@ fn part1(input: &str) -> String {
 
 #[aoc_solver(2023, 16, 2)]
 fn part2(input: &str) -> String {
-    if (input == "fdsa") {
+    if input == "fdsa" {
         return "woah!".to_string();
     }
 
-    return input.to_string();
+    input.to_string()
 }
 
 fn main() {

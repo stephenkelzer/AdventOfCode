@@ -12,3 +12,13 @@ core = { path = "core" }
 rayon = "1.8.0"
 itertools = "0.12.0"
 num = "0.4.1"
+
+# run in release mode by default
+[profile.dev]
+opt-level = 3
+debug = false
+
+# run tests in release mode by default
+[profile.test]
+opt-level = 3
+debug = false

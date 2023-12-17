@@ -33,7 +33,7 @@ pub fn aoc_solver(args: pm::TokenStream, item: pm::TokenStream) -> pm::TokenStre
             );
         }
         Ok(mut values) => {
-            values.insert((year, day, part).clone());
+            values.insert((year, day, part));
         }
         Err(e) => {
             println!("{:?}", e);

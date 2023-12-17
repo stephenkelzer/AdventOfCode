@@ -58,14 +58,14 @@ pub fn validate_fn_output(item_fn: &ItemFn) {
         _ => panic!("{}", RETURN_TYPE_ERROR),
     };
 
-    let segment = match path.segments.first() {
-        Some(segment) => &segment.ident,
+    if path.segments.len() > 1 {
+        panic!("{}", RETURN_TYPE_ERROR);
+    }
+
+    match path.segments.first() {
+        Some(segment) if &segment.ident == "String" => {}
         _ => panic!("{}", RETURN_TYPE_ERROR),
     };
-
-    if segment != "String" {
-        panic!("{}", RETURN_TYPE_ERROR)
-    }
 }
 
 pub fn validate_fn_visibility(item_fn: &ItemFn) {
