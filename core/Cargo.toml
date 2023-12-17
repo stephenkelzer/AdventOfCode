@@ -1,0 +1,8 @@
+[package]
+name = "core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+aoc-solver-derive = { path = "../aoc-solver-derive" }

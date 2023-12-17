@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["days/*"]
+members = ["aoc-solver-derive", "core", "puzzles/*/*", "days/*"]
 
 [workspace.package]
 version = "0.0.0"
@@ -8,6 +8,7 @@ edition = "2021"
 authors = ["Stephen Kelzer <stephen@stephenkelzer.com>"]
 
 [workspace.dependencies]
+core = { path = "core" }
 rayon = "1.8.0"
 itertools = "0.12.0"
 num = "0.4.1"

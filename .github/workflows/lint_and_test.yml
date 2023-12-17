@@ -1,0 +1,35 @@
+name: Tests
+
+on: push
+
+concurrency:
+  group: lint-and-test-${{ github.head_ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  run_tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Check
+        if: ${{ !cancelled() }}
+        run: cargo check --all --examples --tests --all-targets
+
+      - name: Clippy
+        if: ${{ !cancelled() }}
+        run: cargo clippy
+
+      - name: Fmt
+        if: ${{ !cancelled() }}
+        run: cargo fmt --all --check
+
+      - name: Test
+        if: ${{ !cancelled() }}
+        run: cargo test --release --no-fail-fast --verbose
