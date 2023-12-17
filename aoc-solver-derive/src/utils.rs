@@ -1,5 +1,15 @@
 use proc_macro as pm;
-use syn::{ItemFn, Pat, Type, TypePath, Visibility};
+use syn::{Item, ItemFn, Pat, Type, TypePath, Visibility};
+
+pub fn validate_and_get_item_fn(item: pm::TokenStream) -> ItemFn {
+    match syn::parse2::<Item>(item.into()) {
+        Ok(item) => match item {
+            Item::Fn(item_fn) => item_fn,
+            _ => panic!("This macro can only be used on functions."),
+        },
+        Err(_) => panic!("This macro can only be used on functions."),
+    }
+}
 
 pub fn validate_fn_params(item_fn: &ItemFn) {
     const ARGUMENT_NAME_FORMAT_ERROR: &str =
