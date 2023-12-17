@@ -1,6 +1,6 @@
 # Advent of Code 2023
 
-![Tests](https://github.com/stephenkelzer/aoc2023/actions/workflows/run_tests.yml/badge.svg)
+![Tests](https://github.com/stephenkelzer/aoc2023/actions/workflows/lint_and_test.yml/badge.svg)
 
 This is my codebase for the 2023 [Advent of Code](https://adventofcode.com/). This is a simple Rust workflows project separating each day of the event into it's own workspace. There are no binaries in this project, so running `cargo run` will not work. Instead, each day's workspace is a library and has unit tests to check their answer. Once I have successfully completed the puzzle, I update the corresponding unit test's assertion to be correct and then commit the code.
 
