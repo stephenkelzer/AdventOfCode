@@ -33,8 +33,6 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use core::Puzzle;
-
     #[test]
     fn test() {
         assert!(true)
