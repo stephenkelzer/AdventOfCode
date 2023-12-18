@@ -1,8 +1,13 @@
 [package]
-name = "puzzle_2023_01"
+name = "aoc_2023_02"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 
+[[bin]]
+name = "2023_02"
+path = "src/main.rs"
+
 [dependencies]
 core.workspace = true
+aoc-solver-derive.workspace = true

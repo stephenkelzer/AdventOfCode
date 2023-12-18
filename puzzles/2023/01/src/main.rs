@@ -1,4 +1,4 @@
-use core::{aoc_solver, get_count};
+use aoc_solver_derive::{aoc_solver, get_count};
 
 #[aoc_solver(2023, 16, 1)]
 fn part1(input: &str) -> String {
