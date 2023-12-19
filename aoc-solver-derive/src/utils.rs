@@ -92,7 +92,7 @@ pub fn update_fn_name(item_fn: &mut ItemFn, year: u16, day: u8, part: u8) {
     item_fn.sig.ident = new_fn_name;
 }
 
-pub fn extract_macro_attributes(args: pm::TokenStream) -> (u16, u8, u8) {
+pub fn validate_and_extract_macro_attributes(args: pm::TokenStream) -> (u16, u8, u8) {
     let mut idents = args.into_iter().filter_map(|a| {
         if let pm::TokenTree::Literal(_) = a {
             Some(a.into())
@@ -118,6 +118,9 @@ pub fn extract_macro_attributes(args: pm::TokenStream) -> (u16, u8, u8) {
     let part: u8 = part
         .base10_parse::<u8>()
         .expect("failed to parse part into u8");
+    if part < 1 || part > 2 {
+        panic!("part can only be 1 or 2.")
+    }
 
     (year, day, part)
 }

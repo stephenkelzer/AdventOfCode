@@ -6,16 +6,19 @@ use proc_macro::{self, TokenStream};
 use quote::quote;
 use registry::{get_registery_count, register_if_unique};
 use utils::{
-    extract_macro_attributes, update_fn_name, validate_and_get_item_fn, validate_fn_output,
-    validate_fn_params, validate_fn_visibility,
+    update_fn_name, validate_and_extract_macro_attributes, validate_and_get_item_fn,
+    validate_fn_output, validate_fn_params, validate_fn_visibility,
 };
+
+// NOTE: would be really cool to adjust this when [https://github.com/rust-lang/rust/issues/54725] is solved.
+//       could utilize the file path to determine the year and day instead of requiring them as arguments.
 
 /// Used to tag a function as a "solver" for a given Advent of Code puzzle.
 #[proc_macro_attribute]
 pub fn aoc_solver(args: TokenStream, item: TokenStream) -> TokenStream {
     let mut item_fn = validate_and_get_item_fn(item.into());
 
-    let (year, day, part) = extract_macro_attributes(args);
+    let (year, day, part) = validate_and_extract_macro_attributes(args);
 
     register_if_unique((year, day, part));
 

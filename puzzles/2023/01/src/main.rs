@@ -10,11 +10,6 @@ fn part2(input: &str) -> String {
     input.to_string()
 }
 
-#[aoc_solver(2023, 16, 3)]
-fn part2(input: &str) -> String {
-    input.to_string()
-}
-
 fn main() {
     // TODO: is there a way to make this function not necessary?
     // seems like maybe going to a lib will work.
