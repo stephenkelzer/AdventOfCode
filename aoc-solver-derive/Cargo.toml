@@ -8,6 +8,7 @@ authors.workspace = true
 proc-macro = true
 
 [dependencies]
+core.workspace = true
 syn = { version = "2.0.41", features = ["full"] }
 proc-macro2 = "1.0.70"
 quote = "1.0.33"

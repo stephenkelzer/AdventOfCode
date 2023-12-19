@@ -2,52 +2,24 @@ use aoc_solver_derive::aoc_solver;
 
 #[aoc_solver(2023, 2, 1)]
 fn part1(input: &str) -> String {
+    let test = "";
+
     input.to_string()
 }
 
 #[aoc_solver(2023, 2, 2)]
 fn part2(input: &str) -> String {
-    // std::thread::spawn(|| async { println!("wut") })();
     println!("aaa");
     input.to_string()
 }
 
-// fn main() {
-//     solve_2023_2_2(&"heyo");
-// }
-
-// fn main() {
-//     // TODO: is there a way to make this function not necessary?
-//     // seems like maybe going to a lib will work.
-//     let args: Vec<String> = env::args().collect();
-//     dbg!(args);
-
-//     // can call this one with:
-//     //  cargo run --bin 2023_02
-//     //  cargo run --bin 2023_02 1 (to run a single part?)
-
-//     let a = get_count!();
-//     assert_eq!(a, 2);
-
-//     let part_one_result = solve_2023_2_1("test_one");
-//     assert_eq!(part_one_result, "test_one");
-
-//     let part_two_result = solve_2023_2_2("test_two");
-//     assert_eq!(part_two_result, "test_two");
-// }
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test() {
-        assert!(true)
-    }
-}
-
-#[cfg(test)]
-mod tests2 {
-    #[test]
-    fn test() {
-        assert!(true)
-    }
+// TODO:
+// The above two functions have something fundamentally broken with them.. The autocomplete syntax isn't working.
+// I am thinking that the solution is to do something like leaving the original function in place, instead of overwriting it (like we are currently).
+// instead, we should create a shadow function next to the original function, call the original function FROM the shadow function (think: pass-through/proxy)
+// then, in the main func, call the shadow function..  I believe (hope) that this will lead to the intellisense in the rust-analyzer to work.
+// proof: the function below, which doesn't go through the macro works as expected.
+#[allow(unused)]
+fn test(input: &str) -> String {
+    input.replace("abcd", "").to_string()
 }

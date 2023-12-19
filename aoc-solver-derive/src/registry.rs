@@ -1,11 +1,12 @@
+use core::{Puzzle, PuzzlePart};
 use once_cell::sync::Lazy;
 use std::{collections::HashSet, sync::Mutex};
 
-pub static REGISTERED: Lazy<Mutex<HashSet<(u16, u8, u8)>>> =
-    Lazy::new(|| Mutex::new(HashSet::new()));
+pub static REGISTERED: Lazy<Mutex<HashSet<String>>> = Lazy::new(|| Mutex::new(HashSet::new()));
 
-pub fn register_if_unique(key: (u16, u8, u8)) -> bool {
+pub fn register(puzzle: &Puzzle, part: &PuzzlePart) -> bool {
     let mut is_first = false;
+    let key = puzzle.get_function_name(part);
 
     match REGISTERED.lock() {
         Ok(mut mutex) => {
@@ -14,10 +15,7 @@ pub fn register_if_unique(key: (u16, u8, u8)) -> bool {
             }
 
             match mutex.contains(&key) {
-                true => panic!(
-                    "Value '{:?}' has already been used in a previous invocation of the macro!",
-                    key
-                ),
+                true => panic!("This is a duplicate!"),
                 false => {
                     mutex.insert(key);
                 }
@@ -30,14 +28,4 @@ pub fn register_if_unique(key: (u16, u8, u8)) -> bool {
     };
 
     is_first
-}
-
-pub fn get_registery_count() -> usize {
-    match REGISTERED.try_lock() {
-        Ok(mutex) => mutex.len(),
-        Err(e) => {
-            println!("{:?}", e);
-            panic!("REGISTERED IS DEADLOCKED! (this likely means that there is a duplicate aoc_solver macro)");
-        }
-    }
 }

@@ -1,15 +1,12 @@
-mod main_processor;
 mod registry;
 mod utils;
 
-use crate::main_processor::processor;
-use proc_macro as pm;
-use proc_macro::{self, TokenStream};
+use proc_macro::TokenStream;
 use quote::quote;
-use registry::{get_registery_count, register_if_unique};
+use registry::register;
 use utils::{
-    update_fn_name, validate_and_extract_macro_attributes, validate_and_get_item_fn,
-    validate_fn_output, validate_fn_params, validate_fn_visibility,
+    validate_and_extract_macro_attributes, validate_and_get_item_fn, validate_fn_output,
+    validate_fn_params, validate_fn_visibility,
 };
 
 // NOTE: would be really cool to adjust this when [https://github.com/rust-lang/rust/issues/54725] is solved.
@@ -18,68 +15,46 @@ use utils::{
 /// Used to tag a function as a "solver" for a given Advent of Code puzzle.
 #[proc_macro_attribute]
 pub fn aoc_solver(args: TokenStream, item: TokenStream) -> TokenStream {
-    let mut item_fn = validate_and_get_item_fn(item.into());
+    let item_fn = validate_and_get_item_fn(item);
 
-    let (year, day, part) = validate_and_extract_macro_attributes(args);
-
-    let should_render_main = register_if_unique((year, day, part));
+    let (puzzle, part) = validate_and_extract_macro_attributes(args);
 
     validate_fn_params(&item_fn);
     validate_fn_output(&item_fn);
     validate_fn_visibility(&item_fn);
 
-    update_fn_name(&mut item_fn, year, day, part);
-
-    let fn_name = &item_fn.sig.ident;
+    let fn_name = quote::format_ident!("{}", &puzzle.get_function_name(&part));
     let fn_params = &item_fn.sig.inputs;
     let fn_output = &item_fn.sig.output;
     let fn_body = &item_fn.block;
 
-    let main_fn_name = quote::format_ident!("main");
+    let should_render_main = register(&puzzle, &part);
 
     let main_fn = match should_render_main {
-        true => Some(quote! {
-            fn main() {
-                let args: Vec<String> = std::env::args().collect();
-                dbg!(args);
+        true => {
+            let year = puzzle.get_year();
+            let day = puzzle.get_day();
+            let part_one_func_name =
+                quote::format_ident!("{}", puzzle.get_function_name(&core::PuzzlePart::One));
+            let part_two_func_name =
+                quote::format_ident!("{}", puzzle.get_function_name(&core::PuzzlePart::Two));
 
-                // crate::main_processor::processor();
-
-                // let handler = std::thread::spawn(|| async {
-                //     println!("wut")
-                // });
-
-                // handler.join.unwrap();
-
-                // (async || { println!("wut") })();
-
-                // let test = || {
-                //     println!("yo")
-                // };
-                // test();
-
-                println!("main function!")
-            }
-        }),
+            Some(quote! {
+                fn main() {
+                    core::runner::runner(#year, #day, #part_one_func_name, #part_two_func_name);
+                }
+            })
+        }
         false => None,
     };
 
     quote! {
-
         #[allow(unused)]
         fn #fn_name(#fn_params) #fn_output {
-            println!("Executing func: {}", stringify!(#fn_name));
             #fn_body
         }
 
         #main_fn
     }
     .into()
-}
-
-/// get the count of aoc_solver macros registered in this module
-#[proc_macro]
-pub fn get_count(_item: pm::TokenStream) -> pm::TokenStream {
-    let val = get_registery_count();
-    quote! {#val}.into()
 }
