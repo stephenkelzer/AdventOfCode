@@ -4,5 +4,9 @@ version.workspace = true
 edition.workspace = true
 authors.workspace = true
 
+[[bin]]
+name = "2023_01"
+path = "src/main.rs"
+
 [dependencies]
 aoc-solver-derive.workspace = true
