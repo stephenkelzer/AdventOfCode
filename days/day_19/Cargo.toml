@@ -9,4 +9,3 @@ doctest = false
 
 [dependencies]
 itertools.workspace = true
-regex = "1.10.2"
