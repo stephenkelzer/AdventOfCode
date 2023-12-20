@@ -14,6 +14,11 @@ fn part2(input: &str) -> String {
 }
 
 // TODO:
+// Can I adjust the macro to be "single use"? Have one call to the macro at the top of the file and pass
+// the two function names to the macro. This would have the added benefit of not duplicating the year, day
+// portions on the multi-use setup that is currently setup.
+
+// TODO:
 // The above two functions have something fundamentally broken with them.. The autocomplete syntax isn't working.
 // I am thinking that the solution is to do something like leaving the original function in place, instead of overwriting it (like we are currently).
 // instead, we should create a shadow function next to the original function, call the original function FROM the shadow function (think: pass-through/proxy)
