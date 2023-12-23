@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod day_23 {
-    use std::collections::{HashSet, VecDeque};
+    use std::collections::VecDeque;
 
     use itertools::Itertools;
 
@@ -156,7 +156,7 @@ mod day_23 {
     }
 
     #[test]
-    #[ignore = "needs optimization (runs in roughly 3 minutes at the moment)"]
+    #[ignore = "needs optimization (runs in roughly 2 minutes at the moment)"]
     fn part_02() {
         let grid = include_str!("input.txt")
             .lines()
@@ -165,7 +165,7 @@ mod day_23 {
 
         fn dfs(
             grid: &Vec<Vec<char>>,
-            visited: &mut HashSet<(usize, usize)>,
+            seen: &mut Vec<Vec<bool>>,
             (r, c): (usize, usize),
             dist: usize,
             max_dist: &mut usize,
@@ -180,21 +180,19 @@ mod day_23 {
                 let Some(&tile) = grid.get(rr).and_then(|row| row.get(cc)) else {
                     continue;
                 };
-
-                if tile == '#' || visited.contains(&(rr, cc)) {
+                if tile == '#' || seen[rr][cc] {
                     continue;
                 }
-
-                visited.insert((rr, cc));
-                dfs(grid, visited, (rr, cc), dist + 1, max_dist);
-                visited.remove(&(rr, cc));
+                seen[rr][cc] = true;
+                dfs(grid, seen, (rr, cc), dist + 1, max_dist);
+                seen[rr][cc] = false;
             }
         }
 
-        let mut visited: HashSet<(usize, usize)> = HashSet::new();
+        let mut seen = vec![vec![false; grid[0].len()]; grid.len()];
 
         let mut answer = 0;
-        dfs(&grid, &mut visited, (0, 1), 0, &mut answer);
+        dfs(&grid, &mut seen, (0, 1), 0, &mut answer);
         assert_eq!(answer, 6526);
     }
 }
