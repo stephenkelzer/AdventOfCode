@@ -87,8 +87,7 @@ mod day_25 {
 
     #[test]
     fn part_02() {
-        let input = include_str!("input.txt");
-
-        assert_eq!(123, 123);
+        // There is no part 2 for day 25
+        assert!(true);
     }
 }
