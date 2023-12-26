@@ -21,7 +21,7 @@ mod day_25 {
             .len();
         let (mut l, mut r) = (HashSet::new(), HashSet::new());
 
-        let mut answer = None;
+        let answer: Option<usize>;
 
         'again: loop {
             let mut edges = edges.clone();
