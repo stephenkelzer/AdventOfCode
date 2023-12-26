@@ -9,3 +9,4 @@ doctest = false
 
 [dependencies]
 itertools.workspace = true
+num.workspace = true
