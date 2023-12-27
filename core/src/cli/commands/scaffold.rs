@@ -43,7 +43,7 @@ path = "src/main.rs"
 
 [dependencies]
 core.workspace = true
-intertools.workspace = true
+itertools.workspace = true
 "#;
 
 fn create_file(puzzle: &Puzzle, file_path: &PathBuf, content: Option<&str>) -> () {
