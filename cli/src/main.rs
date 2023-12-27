@@ -1,7 +1,7 @@
 mod commands;
 
 use clap::{Args, Parser, Subcommand};
-use core::{Configuration, Puzzle};
+use core::{config::get_default_year, Puzzle};
 
 use crate::commands::scaffold;
 
@@ -32,7 +32,7 @@ struct ScaffoldArgs {
 fn main() {
     let Cli { command, year, .. } = Cli::parse();
 
-    let year = year.unwrap_or(Configuration::new().default_year);
+    let year = year.unwrap_or(get_default_year());
 
     match &command {
         Commands::Scaffold(ScaffoldArgs { day }) => {

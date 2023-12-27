@@ -1,8 +1,8 @@
-use core::{Configuration, Puzzle};
+use core::{config::get_session_token, Puzzle};
 use std::{fs::OpenOptions, io::Write, path::PathBuf};
 
 const MAIN_FILE_TEMPLATE: &str = r##"
-aoc_solver_derive::aoc_solver!(%YEAR%, %DAY%, part1, part2);
+core::solution!(%YEAR%, %DAY%, part1, part2);
 
 fn part1(input: &str) -> impl std::fmt::Display {
     input.to_string()
@@ -43,8 +43,7 @@ path = "src/main.rs"
 
 [dependencies]
 core.workspace = true
-core.intertools = true
-aoc-solver-derive.workspace = true
+intertools.workspace = true
 "#;
 
 fn create_file(puzzle: &Puzzle, file_path: &PathBuf, content: Option<&str>) -> () {
@@ -81,7 +80,7 @@ fn try_download_input(puzzle: &Puzzle) {
         ))
         .header(
             reqwest::header::COOKIE,
-            format!("session={};", Configuration::new().session_token),
+            format!("session={};", get_session_token()),
         );
 
     println!("Downloading Input File Contents...");

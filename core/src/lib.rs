@@ -1,7 +1,7 @@
-mod config;
 mod puzzle;
-pub mod runner;
 mod solution_macro;
 
-pub use config::Configuration;
+pub mod config;
+pub mod runner;
+
 pub use puzzle::Puzzle;

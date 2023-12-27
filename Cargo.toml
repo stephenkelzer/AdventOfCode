@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["aoc-solver-derive", "core", "cli", "puzzles/*/*", "days/*"]
+members = ["core", "cli", "puzzles/*/*", "days/*"]
 
 [workspace.package]
 version = "0.0.0"
@@ -9,7 +9,6 @@ authors = ["Stephen Kelzer <stephen@stephenkelzer.com>"]
 
 [workspace.dependencies]
 core = { path = "core" }
-aoc-solver-derive = { path = "aoc-solver-derive" }
 rayon = "1.8.0"
 itertools = "0.12.0"
 num = "0.4.1"
