@@ -11,11 +11,15 @@ where
 
     println!("RUNNER FOR: {puzzle:?}");
 
-    let input = &"abcdefghijklmnopqrstuvwxyz".to_string();
+    let input = std::fs::read_to_string(&puzzle.get_input_file_path())
+        .expect("input file could not be read.");
+    if input.is_empty() {
+        panic!("Input is empty!");
+    }
 
-    let part_one_answer = part_one_func(input);
+    let part_one_answer = part_one_func(&input);
     println!("PART 1 ANSWER: {}", part_one_answer);
 
-    let part_two_answer = part_two_func(input);
+    let part_two_answer = part_two_func(&input);
     println!("PART 2 ANSWER: {}", part_two_answer);
 }

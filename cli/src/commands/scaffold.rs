@@ -1,27 +1,27 @@
 use core::Puzzle;
-use std::{fs::OpenOptions, io::Write, path::Path};
+use std::{fs::OpenOptions, io::Write, path::PathBuf};
 
 const MAIN_FILE_TEMPLATE: &str = r#"
 aoc_solver_derive::aoc_solver!(%YEAR%, %DAY%, part1, part2);
 
 fn part1(input: &str) -> impl std::fmt::Display {
-    "TODO"
+    input.to_string()
 }
 
 fn part2(input: &str) -> impl std::fmt::Display {
-    "TODO"
+    input.to_string()
 }
 "#;
 
 const TOML_FILE_TEMPLATE: &str = r#"
 [package]
-name = "aoc_%YEAR%_%DAY%"
+name = "%CRATE_NAME%"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 
 [[bin]]
-name = "%YEAR%_%DAY%"
+name = "%BIN_NAME%"
 path = "src/main.rs"
 
 [dependencies]
@@ -30,35 +30,43 @@ core.intertools = true
 aoc-solver-derive.workspace = true
 "#;
 
-fn create_file(puzzle: &Puzzle, name: &str, content: Option<&str>) -> () {
-    let path = Path::new(&puzzle.get_crate_root()).join(name);
-
-    if let Some(prefix) = path.parent() {
+fn create_file(puzzle: &Puzzle, file_path: &PathBuf, content: Option<&str>) -> () {
+    if let Some(prefix) = file_path.parent() {
         std::fs::create_dir_all(prefix).expect("Could not create directory.");
     }
 
     let mut file = OpenOptions::new()
         .write(true)
         .create_new(true)
-        .open(&path)
+        .open(&file_path)
         .expect("Could not create file");
 
     if let Some(content) = content {
         let contents = content
             .replace("%YEAR%", &format!("{:04}", &puzzle.get_year()))
-            .replace("%DAY%", &format!("{:02}", puzzle.get_day()));
+            .replace("%DAY%", &format!("{:02}", puzzle.get_day()))
+            .replace("%CRATE_NAME%", &puzzle.get_crate_name())
+            .replace("%BIN_NAME%", &puzzle.get_bin_name());
 
         file.write_all(&contents.as_bytes())
             .expect("Could not write contents to file")
     }
 
-    println!("Created file: {:?}", path);
+    println!("Created file: {:?}", file_path);
 }
 
 pub fn handle(puzzle: Puzzle) {
-    create_file(&puzzle, "src/main.rs", Some(MAIN_FILE_TEMPLATE));
-    create_file(&puzzle, "Cargo.toml", Some(TOML_FILE_TEMPLATE));
-    // create_file(&puzzle, "input.txt", None);
+    create_file(
+        &puzzle,
+        &puzzle.get_main_file_path(),
+        Some(MAIN_FILE_TEMPLATE),
+    );
+    create_file(
+        &puzzle,
+        &puzzle.get_cargo_toml_path(),
+        Some(TOML_FILE_TEMPLATE),
+    );
+    create_file(&puzzle, &puzzle.get_input_file_path(), None);
     // create_file(&puzzle, "example.txt", None);
 
     println!("---");
