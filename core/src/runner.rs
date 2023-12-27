@@ -23,3 +23,24 @@ where
     let part_two_answer = part_two_func(&input);
     println!("PART 2 ANSWER: {}", part_two_answer);
 }
+
+pub fn test<F, FR, E>(func: F, example_input: &str, expected: E)
+where
+    FR: std::fmt::Display,
+    F: Fn(&str) -> FR,
+    E: std::fmt::Display,
+{
+    let cleaned_example_input: String = example_input
+        .trim_start_matches("\n")
+        .trim_end_matches("\n")
+        .lines()
+        .map(|l| l.trim())
+        .collect::<Vec<_>>()
+        .join("\n");
+
+    assert!(!cleaned_example_input.is_empty(), "Example input is empty.");
+    assert_eq!(
+        func(&cleaned_example_input).to_string(),
+        expected.to_string()
+    );
+}

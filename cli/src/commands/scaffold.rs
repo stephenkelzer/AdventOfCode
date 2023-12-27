@@ -1,7 +1,7 @@
 use core::Puzzle;
 use std::{fs::OpenOptions, io::Write, path::PathBuf};
 
-const MAIN_FILE_TEMPLATE: &str = r#"
+const MAIN_FILE_TEMPLATE: &str = r##"
 aoc_solver_derive::aoc_solver!(%YEAR%, %DAY%, part1, part2);
 
 fn part1(input: &str) -> impl std::fmt::Display {
@@ -11,7 +11,27 @@ fn part1(input: &str) -> impl std::fmt::Display {
 fn part2(input: &str) -> impl std::fmt::Display {
     input.to_string()
 }
+
+#[cfg(test)]
+mod test_%YEAR%_%DAY% {
+    use super::*;
+    use core::runner::test;
+
+    const EXAMPLE_INPUT: &str = r#"
+abcdefg
 "#;
+
+    #[test]
+    fn part_one() {
+        test(part1, EXAMPLE_INPUT, "abcdefg");
+    }
+
+    #[test]
+    fn part_two() {
+        test(part2, EXAMPLE_INPUT, "abcdefg");
+    }
+}
+"##;
 
 const TOML_FILE_TEMPLATE: &str = r#"
 [package]
