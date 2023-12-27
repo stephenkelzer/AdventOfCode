@@ -1,0 +1,2 @@
+[alias]
+scaffold = "run --quiet --release -- scaffold"

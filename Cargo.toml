@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["aoc-solver-derive", "core", "puzzles/*/*", "days/*"]
+members = ["aoc-solver-derive", "core", "cli", "puzzles/*/*", "days/*"]
 
 [workspace.package]
 version = "0.0.0"
