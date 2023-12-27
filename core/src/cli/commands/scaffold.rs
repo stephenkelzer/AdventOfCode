@@ -2,7 +2,7 @@ use core::{config::get_session_token, Puzzle};
 use std::{fs::OpenOptions, io::Write, path::PathBuf};
 
 const MAIN_FILE_TEMPLATE: &str = r##"
-core::solution!(%YEAR%, %DAY%, part1, part2);
+core::solver!(%YEAR%, %DAY%, part1, part2);
 
 fn part1(input: &str) -> impl std::fmt::Display {
     input.to_string()
