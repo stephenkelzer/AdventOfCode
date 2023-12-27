@@ -6,6 +6,7 @@ macro_rules! solver {
             core::runner::runner(puzzle, $day_one_func, $day_two_func);
         }
 
+        // TODO: rename "tests" module name to something like: tests_2023_02 or 2023_02_tests
         #[cfg(test)]
         mod tests {
             use super::*;
