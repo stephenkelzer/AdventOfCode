@@ -1,4 +1,4 @@
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 use crate::config::get_latest_year;
 
@@ -33,10 +33,6 @@ impl Puzzle {
         self.day
     }
 
-    pub fn get_crate_root(&self) -> String {
-        format!("puzzles/{:04}/{:02}/", self.year, self.day)
-    }
-
     pub fn get_crate_name(&self) -> String {
         format!("aoc_{:04}_{:02}", self.year, self.day)
     }
@@ -45,15 +41,32 @@ impl Puzzle {
         format!("{:04}_{:02}", self.year, self.day)
     }
 
+    pub fn get_repository_root(&self) -> PathBuf {
+        // this is the path of the dir that contains the nearest Cargo.toml file
+        // in this case, it will be the core crate (because that is where this file is located).
+        let core_crate_dir = env!("CARGO_MANIFEST_DIR");
+
+        // this will be the root of the "core" crate
+        PathBuf::from(core_crate_dir)
+            // so let's go up one folder to bring us to the root of the repository
+            .join("..")
+            // then dive into the puzzle directory
+            .join(format!("puzzles/{:04}/{:02}/", self.year, self.day))
+    }
+
     pub fn get_cargo_toml_path(&self) -> PathBuf {
-        Path::new(&self.get_crate_root()).join("Cargo.toml")
+        PathBuf::from(&self.get_repository_root()).join("Cargo.toml")
     }
 
     pub fn get_main_file_path(&self) -> PathBuf {
-        Path::new(&self.get_crate_root()).join("src/main.rs")
+        PathBuf::from(&self.get_repository_root()).join("src/main.rs")
     }
 
     pub fn get_input_file_path(&self) -> PathBuf {
-        Path::new(&self.get_crate_root()).join("src/input.txt")
+        PathBuf::from(&self.get_repository_root()).join("src/input.txt")
+    }
+
+    pub fn get_example_file_path(&self) -> PathBuf {
+        PathBuf::from(&self.get_repository_root()).join("src/example.txt")
     }
 }

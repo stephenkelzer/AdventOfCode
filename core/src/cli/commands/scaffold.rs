@@ -2,31 +2,14 @@ use core::{config::get_session_token, Puzzle};
 use std::{fs::OpenOptions, io::Write, path::PathBuf};
 
 const MAIN_FILE_TEMPLATE: &str = r##"
-core::solver!(%YEAR%, %DAY%, part1, part2);
+core::solver!(%YEAR%, %DAY%, part1, part2, 123, 123);
 
 fn part1(input: &str) -> impl std::fmt::Display {
-    input.to_string()
+    123
 }
 
 fn part2(input: &str) -> impl std::fmt::Display {
-    input.to_string()
-}
-
-#[cfg(test)]
-mod test_%YEAR%_%DAY% {
-    const EXAMPLE_INPUT: &str = r#"
-abcdefg
-"#;
-
-    #[test]
-    fn part_one() {
-        core::runner::test(super::part1, EXAMPLE_INPUT, "abcdefg");
-    }
-
-    #[test]
-    fn part_two() {
-        core::runner::test(super::part2, EXAMPLE_INPUT, "abcdefg");
-    }
+    123
 }
 "##;
 
@@ -123,6 +106,7 @@ pub fn handle(puzzle: Puzzle) {
         Some(TOML_FILE_TEMPLATE),
     );
     create_file(&puzzle, &puzzle.get_input_file_path(), None);
+    create_file(&puzzle, &puzzle.get_example_file_path(), None);
 
     try_download_input(&puzzle);
 

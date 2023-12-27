@@ -7,13 +7,16 @@ where
     F1: Fn(&str) -> F1R,
     F2: Fn(&str) -> F2R,
 {
-    println!("RUNNER FOR: {puzzle:?}");
-
-    let input = std::fs::read_to_string(&puzzle.get_input_file_path())
-        .expect("input file could not be read.");
-    if input.is_empty() {
-        panic!("Input is empty!");
-    }
+    let input = match std::fs::read_to_string(&puzzle.get_input_file_path()) {
+        Ok(file) => {
+            assert!(!file.is_empty(), "Input file is empty.");
+            file
+        }
+        Err(e) => {
+            println!("{e:?}");
+            panic!("Input file not found.");
+        }
+    };
 
     let part_one_answer = part_one_func(&input);
     println!("PART 1 ANSWER: {}", part_one_answer);
@@ -22,23 +25,22 @@ where
     println!("PART 2 ANSWER: {}", part_two_answer);
 }
 
-pub fn test<F, FR, E>(func: F, example_input: &str, expected: E)
+pub fn test<F, FR, E>(puzzle: Puzzle, func: F, expected: E)
 where
     FR: std::fmt::Display,
     F: Fn(&str) -> FR,
     E: std::fmt::Display,
 {
-    let cleaned_example_input: String = example_input
-        .trim_start_matches("\n")
-        .trim_end_matches("\n")
-        .lines()
-        .map(|l| l.trim())
-        .collect::<Vec<_>>()
-        .join("\n");
+    let input = match std::fs::read_to_string(&puzzle.get_example_file_path()) {
+        Ok(file) => {
+            assert!(!file.is_empty(), "Example file is empty.");
+            file
+        }
+        Err(e) => {
+            println!("{e:?}");
+            panic!("Example file not found.");
+        }
+    };
 
-    assert!(!cleaned_example_input.is_empty(), "Example input is empty.");
-    assert_eq!(
-        func(&cleaned_example_input).to_string(),
-        expected.to_string()
-    );
+    assert_eq!(func(&input).to_string(), expected.to_string());
 }
