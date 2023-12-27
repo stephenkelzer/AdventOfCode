@@ -1,4 +1,4 @@
-use core::Puzzle;
+use core::{Configuration, Puzzle};
 use std::{fs::OpenOptions, io::Write, path::PathBuf};
 
 const MAIN_FILE_TEMPLATE: &str = r##"
@@ -72,6 +72,46 @@ fn create_file(puzzle: &Puzzle, file_path: &PathBuf, content: Option<&str>) -> (
     println!("Created file: {:?}", file_path);
 }
 
+fn try_download_input(puzzle: &Puzzle) {
+    let request = reqwest::blocking::Client::new()
+        .get(format!(
+            "https://adventofcode.com/{:?}/day/{:?}/input",
+            puzzle.get_year(),
+            puzzle.get_day()
+        ))
+        .header(
+            reqwest::header::COOKIE,
+            format!("session={};", Configuration::new().session_token),
+        );
+
+    println!("Downloading Input File Contents...");
+
+    match request.send() {
+        Ok(response) => match response.status() {
+            reqwest::StatusCode::OK => match response.text() {
+                Ok(content) => {
+                    let trimmed_content = content.trim_start_matches("\n").trim_end_matches("\n");
+
+                    OpenOptions::new()
+                        .write(true)
+                        .create_new(false)
+                        .open(&puzzle.get_input_file_path())
+                        .expect("Could open input file for writing.")
+                        .write_all(&trimmed_content.as_bytes())
+                        .expect("Failed to write contents to input file.");
+
+                    println!("Input File Updated!");
+                }
+                Err(_) => println!("input download request failed! Could not download contents."),
+            },
+            _ => {
+                println!("input download request failed! Check your `.env` file for a valid session token.")
+            }
+        },
+        Err(_) => println!("input download request failed!"),
+    }
+}
+
 pub fn handle(puzzle: Puzzle) {
     create_file(
         &puzzle,
@@ -84,7 +124,8 @@ pub fn handle(puzzle: Puzzle) {
         Some(TOML_FILE_TEMPLATE),
     );
     create_file(&puzzle, &puzzle.get_input_file_path(), None);
-    // create_file(&puzzle, "example.txt", None);
+
+    try_download_input(&puzzle);
 
     println!("---");
     println!(

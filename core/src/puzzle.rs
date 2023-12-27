@@ -1,5 +1,7 @@
 use std::path::{Path, PathBuf};
 
+use crate::Configuration;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Puzzle {
     year: u16,
@@ -8,10 +10,12 @@ pub struct Puzzle {
 
 impl Puzzle {
     pub fn new(year: &u16, day: &u8) -> Self {
-        if !(&2015..=&2023).contains(&year) {
-            // TODO: validate actual current year instead of hardcoding 2023
+        let allowed_year_range = 2015..=Configuration::new().latest_year;
+        let allowed_day_range = 1..=25;
+
+        if !allowed_year_range.contains(year) {
             panic!("Year out of bounds!")
-        } else if !(&1..=&25).contains(&day) {
+        } else if !allowed_day_range.contains(day) {
             panic!("Day out of bounds!")
         }
 
