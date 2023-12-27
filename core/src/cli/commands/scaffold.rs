@@ -2,13 +2,13 @@ use core::{config::get_session_token, Puzzle};
 use std::{fs::OpenOptions, io::Write, path::PathBuf};
 
 const MAIN_FILE_TEMPLATE: &str = r##"
-core::solver!(%YEAR%, %DAY%, part1, part2, 123, 123);
+core::solver!(%YEAR%, %DAY%, part_one, part_two, 123, 123);
 
-fn part1(input: &str) -> impl std::fmt::Display {
+fn part_one(input: &str) -> impl std::fmt::Display {
     123
 }
 
-fn part2(input: &str) -> impl std::fmt::Display {
+fn part_two(input: &str) -> impl std::fmt::Display {
     123
 }
 "##;

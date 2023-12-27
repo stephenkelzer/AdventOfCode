@@ -11,13 +11,13 @@ macro_rules! solver {
             use super::*;
 
             #[test]
-            fn part_one() {
+            fn test_part_one() {
                 let puzzle = core::Puzzle::new(&$year, &$day);
                 core::runner::test(puzzle, $day_one_func, $day_one_expected);
             }
 
             #[test]
-            fn part_two() {
+            fn test_part_two() {
                 let puzzle = core::Puzzle::new(&$year, &$day);
                 core::runner::test(puzzle, $day_two_func, $day_two_expected);
             }
